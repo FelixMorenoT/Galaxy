@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.galaxy.responses.GalaxyResponse;
-
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 @ControllerAdvice
 public class ExceptionController {
 

@@ -1,5 +1,9 @@
 package com.galaxy.responses;
-
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 public class GalaxyResponse {
 
 	private int status;

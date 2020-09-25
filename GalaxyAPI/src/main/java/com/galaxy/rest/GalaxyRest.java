@@ -32,6 +32,11 @@ import com.galaxy.services.VisitorLogsService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 
 @RestController
 @RequestMapping("/galaxy")
@@ -83,6 +88,7 @@ public class GalaxyRest {
 	}
 	
 	@GetMapping("/astronaut")
+	@ApiOperation(value = "List all Astronauts", notes = "List<Astronaut> Response (http.status)" )
 	public ResponseEntity<List<Astronaut>> listAstronauts(){
 		List<Astronaut> tempListAstronauts = new ArrayList<Astronaut>();
 		tempListAstronauts = astronautService.listAstronauts();
@@ -90,6 +96,7 @@ public class GalaxyRest {
 	}
 	
 	@PatchMapping("/astronaut/{toAstronaut}/{fromAstronaut}")
+	@ApiOperation(value = "Visit an Astronaut", notes = "Galaxy Response (http.status)" )
 	public ResponseEntity<GalaxyResponse> visitAstronaut(@PathVariable("toAstronaut") String vistToAstronaut, @PathVariable("fromAstronaut") String vistFromAustronaut) {
 		galaxyResponse = new GalaxyResponse();
 		Astronaut visitToAstronaut = astronautService.getAstronaut(Long.parseLong(vistToAstronaut));
@@ -113,6 +120,7 @@ public class GalaxyRest {
 	}
 	
 	@PostMapping("/planet")
+	@ApiOperation(value = "Create a new Planet", notes = "Galaxy Response (http.status)" )
 	public ResponseEntity<GalaxyResponse> createPlanet(@RequestBody Planet planet) {
 		galaxyResponse = new GalaxyResponse();
 		boolean result = false;
@@ -134,12 +142,14 @@ public class GalaxyRest {
 	}
 	
 	@GetMapping("/planet")
+	@ApiOperation(value = "List all Planet", notes = "List<PlanetInfo> (http.status)" )
 	public ResponseEntity<List<PlanetInfo>>  listPlanets(){
 		List<PlanetInfo> listPlanets = planetService.listPlanets();
 		return new ResponseEntity<List<PlanetInfo>>(listPlanets,HttpStatus.OK);
 	}
 	
 	@PostMapping("/planet/{astronautId}/{planetId}")
+	@ApiOperation(value = "Set Astronaunt Home", notes = "Galaxy Response (http.status)" )
 	public ResponseEntity<GalaxyResponse> setHome(@PathVariable("astronautId") String astronautId, @PathVariable("planetId") String planetId) {
 		galaxyResponse = new GalaxyResponse();
 		Astronaut tempAstronaut = astronautService.getAstronaut(Long.parseLong(astronautId));
@@ -163,6 +173,7 @@ public class GalaxyRest {
 	}
 	
 	@PatchMapping("/planet/{astronautId}/{planetId}")
+	@ApiOperation(value = "Visit a Planet", notes = "Galaxy Response (http.status)" )
 	public ResponseEntity<GalaxyResponse> visitPlanet(@PathVariable("astronautId") String astronautId, @PathVariable("planetId") String planetId) {
 		galaxyResponse = new GalaxyResponse();
 		Astronaut tempAstronaut = astronautService.getAstronaut(Long.parseLong(astronautId));
@@ -187,6 +198,7 @@ public class GalaxyRest {
 	}
 	
 	@GetMapping("/top")
+	@ApiOperation(value = "List Top Planet and Astronaut", notes = "TopInfo (http.status)" )
 	public ResponseEntity<TopInfo> topList(){
 		TopInfo tempTopInfo = new TopInfo();
 		tempTopInfo.setTopAstronaut(astronautService.topAstronaut());

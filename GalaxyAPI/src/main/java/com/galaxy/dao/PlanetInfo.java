@@ -1,5 +1,10 @@
 package com.galaxy.dao;
 
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 public class PlanetInfo {
 	
 	private String planetName;
@@ -14,6 +19,17 @@ public class PlanetInfo {
 		
 	}
 	
+	/**
+	 * Returns an Planet Info Object
+	 * 
+	 * @param planetName Referred to Planet Name
+	 * @param planetPopulation Referred to Planet population
+	 * @param planetTerrain Referred to Planet terrain 
+	 * @param planetWeather Referred to Planet Weather
+	 * @param planetDiameter Referred to Planet Diameter
+	 * @param planetRotationTime Referred to Planet rotation time
+	 * @param planetVisit Referred to how many Astronaut has been in the Planet
+	 * */
 	public PlanetInfo(String planetName, long planetPopulation, String planetTerrain, String planetWeather,
 			String planetDiameter, String planetRotationTime, long planetVisit) {
 		this.planetName = planetName;

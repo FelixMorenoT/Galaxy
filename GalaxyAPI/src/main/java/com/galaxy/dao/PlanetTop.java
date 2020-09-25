@@ -1,5 +1,9 @@
 package com.galaxy.dao;
-
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 public class PlanetTop {
 
 	private String planetName;
@@ -9,9 +13,15 @@ public class PlanetTop {
 		
 	}
 	
-	public PlanetTop(String planetName, long planetVi) {
+	/**
+	 * Returns an Planet Top Object
+	 * 
+	 * @param planetName Referred to Planet Name
+	 * @param planetVisit Referred to how many times the Planet has been visited
+	 * */
+	public PlanetTop(String planetName, long planetVisit) {
 		this.planetName = planetName;
-		this.planetVisit = planetVi;
+		this.planetVisit = planetVisit;
 	}
 
 	public String getPlanetName() {
@@ -26,8 +36,8 @@ public class PlanetTop {
 		return planetVisit;
 	}
 
-	public void setPlanetVi(long planetVi) {
-		this.planetVisit = planetVi;
+	public void setPlanetVi(long planetVisit) {
+		this.planetVisit = planetVisit;
 	}
 	
 	

@@ -6,7 +6,11 @@ import org.springframework.stereotype.Service;
 import com.galaxy.entity.VisitorLogs;
 import com.galaxy.repositories.VisitorLogsRepository;
 import com.galaxy.services.VisitorLogsService;
-
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 @Service
 public class VisitorLogsServiceImp implements VisitorLogsService {
 

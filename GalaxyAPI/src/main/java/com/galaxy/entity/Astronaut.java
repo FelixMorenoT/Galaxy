@@ -1,6 +1,9 @@
 package com.galaxy.entity;
-
-
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -8,7 +8,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.galaxy.entity.Planet;
-
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 @Repository
 public interface PlanetRepository extends JpaRepository<Planet, Long> {
 

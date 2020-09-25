@@ -11,7 +11,11 @@ import com.galaxy.dao.AstronautTop;
 import com.galaxy.entity.Astronaut;
 import com.galaxy.repositories.AstronautRepository;
 import com.galaxy.services.AstronautService;
-
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 @Service
 public class AstronautServiceImp implements AstronautService{
 

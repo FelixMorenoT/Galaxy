@@ -1,0 +1,9 @@
+com.galaxy
+com.galaxy.dao
+com.galaxy.entity
+com.galaxy.exception
+com.galaxy.repositories
+com.galaxy.responses
+com.galaxy.rest
+com.galaxy.services
+com.galaxy.services.imp

@@ -1,5 +1,9 @@
 package com.galaxy.dao;
-
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 import java.util.List;
 
 public class TopInfo {

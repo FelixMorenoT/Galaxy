@@ -7,7 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.galaxy.entity.Astronaut;
-
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 @Repository
 public interface AstronautRepository extends JpaRepository<Astronaut, Long> {
 

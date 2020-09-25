@@ -12,7 +12,11 @@ import com.galaxy.dao.PlanetTop;
 import com.galaxy.entity.Planet;
 import com.galaxy.repositories.PlanetRepository;
 import com.galaxy.services.PlanetService;
-
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 @Service
 public class PlanetServiceImp implements PlanetService {
 

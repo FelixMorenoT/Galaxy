@@ -1,5 +1,9 @@
 package com.galaxy.dao;
-
+/**
+ * 
+ * @author Felix Rafael Moreno
+ * @version V1.0
+ * */
 public class AstronautTop {
 
 	private String astronautName;
@@ -10,6 +14,13 @@ public class AstronautTop {
 		
 	}
 
+	/**
+	 * Returns an AstronautTop Object
+	 * 
+	 * @param astronautName Referred to Astronaut First Name
+	 * @param astronautLastName Referred to Astronaut Last Name
+	 * @param astronautVisit Referred to how many visits the Astronaut have had
+	 * */
 	public AstronautTop(String astronautName, String astronautLastName, long astronautVisit) {
 		this.astronautName = astronautName;
 		this.astronautLastName = astronautLastName;
