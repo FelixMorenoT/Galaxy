@@ -7,6 +7,7 @@ package com.galaxy.dao;
  * */
 public class PlanetInfo {
 	
+	private long planetId;
 	private String planetName;
 	private long planetPopulation;
 	private String planetTerrain;
@@ -22,6 +23,7 @@ public class PlanetInfo {
 	/**
 	 * Returns an Planet Info Object
 	 * 
+	 * @param planetId
 	 * @param planetName Referred to Planet Name
 	 * @param planetPopulation Referred to Planet population
 	 * @param planetTerrain Referred to Planet terrain 
@@ -30,8 +32,9 @@ public class PlanetInfo {
 	 * @param planetRotationTime Referred to Planet rotation time
 	 * @param planetVisit Referred to how many Astronaut has been in the Planet
 	 * */
-	public PlanetInfo(String planetName, long planetPopulation, String planetTerrain, String planetWeather,
-			String planetDiameter, String planetRotationTime, long planetVisit) {
+	public PlanetInfo(long planetId, String planetName, long planetPopulation, String planetTerrain,
+			String planetWeather, String planetDiameter, String planetRotationTime, long planetVisit) {
+		this.planetId = planetId;
 		this.planetName = planetName;
 		this.planetPopulation = planetPopulation;
 		this.planetTerrain = planetTerrain;
@@ -41,7 +44,13 @@ public class PlanetInfo {
 		this.planetVisit = planetVisit;
 	}
 
+	public long getPlanetId() {
+		return planetId;
+	}
 
+	public void setPlanetId(long planetId) {
+		this.planetId = planetId;
+	}
 
 	public String getPlanetName() {
 		return planetName;

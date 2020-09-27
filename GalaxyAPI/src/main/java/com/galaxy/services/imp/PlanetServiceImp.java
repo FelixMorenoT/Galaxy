@@ -50,7 +50,7 @@ public class PlanetServiceImp implements PlanetService {
 		tempListPlantes = planetRepository.findAll();
 		for (Planet value : tempListPlantes) {
 			long tempPopulation = (planetRepository.getPlanetPopulation((value.getPlanetId()))) ;
-			PlanetInfo tempPlanetInfo = new PlanetInfo(value.getPlanetName(), tempPopulation, value.getPlanetTerrain(), value.getPlanetWeather(), 
+			PlanetInfo tempPlanetInfo = new PlanetInfo(value.getPlanetId(), value.getPlanetName(), tempPopulation, value.getPlanetTerrain(), value.getPlanetWeather(), 
 																				value.getPlanetDiameter(), value.getPlanetRotationTime(), value.getPlanetCountVisit());
 			listPlanets.add(tempPlanetInfo);
 		}
@@ -64,7 +64,11 @@ public class PlanetServiceImp implements PlanetService {
 			List<PlanetTop> tempTop = new ArrayList<PlanetTop>();
 			List<Planet> tempList = planetRepository.topPlanet();
 			
-			for (int i = 0; i < limitTop; i++) {
+			long temp = limitTop>tempList.size()?tempList.size():limitTop;
+			
+			System.out.println("Limit Planet" + temp);
+			
+			for (int i = 0; i < temp; i++) {
 				tempTop.add(new PlanetTop(tempList.get(i).getPlanetName(), tempList.get(i).getPlanetCountVisit()));
 			}
 			return tempTop;
