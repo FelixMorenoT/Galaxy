@@ -53,8 +53,7 @@ public class AstronautServiceImp implements AstronautService{
 			List<AstronautTop> topList = new ArrayList<AstronautTop>();
 			List<Astronaut> tempList = astronautRepository.topAstronaut();
 			long temp = limitTop>tempList.size()?tempList.size():limitTop;
-			System.out.println("Limit Astronaut " + temp);
-			
+		
 			for (int i = 0; i < temp; i++) {
 				topList.add(new AstronautTop(tempList.get(i).getAstronautName(), tempList.get(i).getAstronautLastName(),tempList.get(i).getAstronautCountVisit()));
 			}

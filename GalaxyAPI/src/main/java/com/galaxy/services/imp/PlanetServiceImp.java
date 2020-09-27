@@ -66,8 +66,6 @@ public class PlanetServiceImp implements PlanetService {
 			
 			long temp = limitTop>tempList.size()?tempList.size():limitTop;
 			
-			System.out.println("Limit Planet" + temp);
-			
 			for (int i = 0; i < temp; i++) {
 				tempTop.add(new PlanetTop(tempList.get(i).getPlanetName(), tempList.get(i).getPlanetCountVisit()));
 			}
