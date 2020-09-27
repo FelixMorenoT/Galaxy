@@ -1,33 +1,44 @@
 package com.galaxy;
 
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.galaxy.entity.Astronaut;
+import com.galaxy.rest.GalaxyRest;
+import com.galaxy.services.AstronautService;
 
-@SpringBootTest()
+@SpringBootTest
 class GalaxyApiApplicationTests {
 
-	protected MockMvc mvc;
+	@InjectMocks
+	GalaxyRest galaxyRest;
 	
-	@Autowired
-	private TestRestTemplate restTemplate;
+	@Mock
+	AstronautService astronautService;
 	
-	private  ObjectMapper Obj = new ObjectMapper(); 
+	@BeforeEach
+	void setUp() throws Exception{
+		MockitoAnnotations.initMocks(this);
+
+	}
 	
 	@Test
-	public void testCreateAstronauts() {
-		String uri = "/astronaut";
-		Astronaut temp = new Astronaut(1, "Felix", "Moreno", "25", "160", "80", "Masculino", "14/05/1995", "O+");
-
-			   
+	public void testCreateAnAstronaut() throws Exception {
+		Astronaut tempAstronaut = new Astronaut("Felix", "Moreno", "25", "1.60cm", "80kg", "Masculino", "14/05/1995", "O+");
+		when(astronautService.saveAstronaut(tempAstronaut)).thenReturn(true);
+	
 	}
-
+	
+	@Test
+	public void testCreateAnAstronaut1() throws Exception {
+		
+		Astronaut tempAstronaut1 = new Astronaut();
+		when(astronautService.saveAstronaut(tempAstronaut1)).thenReturn(false);
+	}
 }

@@ -63,6 +63,18 @@ public class Astronaut{
 		this.astronautBirth = astronautBirth;
 		this.astronautRH = astronautRH;
 	}
+	
+	public Astronaut(String astronautName, String astronautLastName, String astronautAge, String astronautHigh,
+			String astronautWeight, String astronautGender, String astronautBirth, String astronautRH) {
+		this.astronautName = astronautName;
+		this.astronautLastName = astronautLastName;
+		this.astronautAge = astronautAge;
+		this.astronautHigh = astronautHigh;
+		this.astronautWeight = astronautWeight;
+		this.astronautGender = astronautGender;
+		this.astronautBirth = astronautBirth;
+		this.astronautRH = astronautRH;
+	}
 
 	public long getAstronautId() {
 		return astronautId;
