@@ -9,4 +9,5 @@ import com.galaxy.entity.PlanetHome;
 public interface PlanetHomeService {
 
 	public boolean savePlanetHome(PlanetHome planetHome);
+	public long getPlanetIdFromAstronautHome(long astronautId);
 }

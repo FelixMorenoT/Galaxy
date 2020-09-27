@@ -20,10 +20,19 @@ public class PlanetHomeServiceImp implements PlanetHomeService {
 	@Override
 	public boolean savePlanetHome(PlanetHome planetHome) {
 		PlanetHome tempPlanetHome = planetHomeRepository.save(planetHome);
-		
 		if (tempPlanetHome != null) 
 			return true;
 	
 		return false;
+	}
+
+	@Override
+	public long getPlanetIdFromAstronautHome(long astronautId) {
+		
+		try {
+			return planetHomeRepository.getPlanetHomeFromAstronaut(astronautId);
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 }

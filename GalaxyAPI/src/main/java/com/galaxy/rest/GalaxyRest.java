@@ -71,57 +71,77 @@ public class GalaxyRest {
 		astronaut.setAstronautId(0);
 		result = astronautService.saveAstronaut(astronaut);
 		if(result) {
-			log.info("Result [/astronaut] = {}",result);
+			log.info("Result [@PostMapping(\"/astronaut\")] = {}",result);
 				galaxyResponse.setStatus(HttpStatus.OK.value());
 				galaxyResponse.setMessage("Success");
 				galaxyResponse.setTimeStamp(System.currentTimeMillis());
-				log.info("----- End [/astronaut] -----");
+				log.info("----- End [/astronaut] OK-----");
 			return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.OK);
 		}
 		
-		log.info("Result [/astronaut] = {}",result);
+		log.info("Result [@PostMapping(\"/astronaut\")] = {}",result);
 		galaxyResponse.setStatus(HttpStatus.BAD_REQUEST.value());
 		galaxyResponse.setMessage("Bad Request");
 		galaxyResponse.setTimeStamp(System.currentTimeMillis());
-		log.info("----- End [/astronaut] -----");
+		log.info("----- End [@PostMapping(\"/astronaut\")] BAD_REQUEST-----");
 	return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/astronaut")
 	@ApiOperation(value = "List all Astronauts", notes = "List<Astronaut> Response (http.status)" )
 	public ResponseEntity<List<Astronaut>> listAstronauts(){
+		log.info("----- Start [@GetMapping(\"/astronaut\")] -----");
 		List<Astronaut> tempListAstronauts = new ArrayList<Astronaut>();
 		tempListAstronauts = astronautService.listAstronauts();
+		log.info("----- End [@GetMapping(\"/astronaut\")] OK-----");
 		return new ResponseEntity<List<Astronaut>>(tempListAstronauts,HttpStatus.OK);
 	}
 	
 	@PatchMapping("/astronaut/{toAstronaut}/{fromAstronaut}")
 	@ApiOperation(value = "Visit an Astronaut", notes = "Galaxy Response (http.status)" )
 	public ResponseEntity<GalaxyResponse> visitAstronaut(@PathVariable("toAstronaut") String vistToAstronaut, @PathVariable("fromAstronaut") String vistFromAustronaut) {
+		log.info("----- Start [@PatchMapping(\"/astronaut/{toAstronaut}/{fromAstronaut}\"))] -----");
 		galaxyResponse = new GalaxyResponse();
 		Astronaut visitToAstronaut = astronautService.getAstronaut(Long.parseLong(vistToAstronaut));
 		Astronaut visitFromAstronaut = astronautService.getAstronaut(Long.parseLong(vistFromAustronaut));
 		
 		if (visitToAstronaut != null && visitFromAstronaut != null) {
-			visitToAstronaut.setAstronautCountVisit(visitToAstronaut.getAstronautCountVisit() +1);
-			astronautService.saveAstronaut(visitToAstronaut);
-			visitLogService.saveLog(new VisitorLogs(visitFromAstronaut.getAstronautId(), visitToAstronaut.getAstronautId(), formatter.format(new Date()).toString(),"AA"));
+			long tempIdPlanet = planetHomeService.getPlanetIdFromAstronautHome(visitToAstronaut.getAstronautId());
 			
-			galaxyResponse.setStatus(HttpStatus.OK.value());
-			galaxyResponse.setMessage("Success");
+			if(tempIdPlanet != 0) {
+				Planet tempPlanet = planetService.getPlanet(tempIdPlanet);
+				tempPlanet.setPlanetCountVisit(tempPlanet.getPlanetCountVisit() + 1);
+				planetService.savePlanet(tempPlanet);
+				
+				visitToAstronaut.setAstronautCountVisit(visitToAstronaut.getAstronautCountVisit() +1);
+				astronautService.saveAstronaut(visitToAstronaut);
+				visitLogService.saveLog(new VisitorLogs(visitFromAstronaut.getAstronautId(), visitToAstronaut.getAstronautId(), formatter.format(new Date()).toString(),"AA"));
+				
+				galaxyResponse.setStatus(HttpStatus.OK.value());
+				galaxyResponse.setMessage("Success");
+				galaxyResponse.setTimeStamp(System.currentTimeMillis());
+				log.info("----- End [@PatchMapping(\"/astronaut/{toAstronaut}/{fromAstronaut}\"))] OK-----");
+			return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.OK);
+				
+			}
+			galaxyResponse.setStatus(HttpStatus.CONFLICT.value());
+			galaxyResponse.setMessage("Conflict");
 			galaxyResponse.setTimeStamp(System.currentTimeMillis());
-		return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.OK);
+			log.info("----- End [@PatchMapping(\"/astronaut/{toAstronaut}/{fromAstronaut}\"))] CONFLICT-----");
+		return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.CONFLICT);
 		}
 		
 		galaxyResponse.setStatus(HttpStatus.BAD_REQUEST.value());
 		galaxyResponse.setMessage("Bad Request");
 		galaxyResponse.setTimeStamp(System.currentTimeMillis());
+		log.info("----- End [@PatchMapping(\"/astronaut/{toAstronaut}/{fromAstronaut}\"))] BAD_REQUEST-----");
 	return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.BAD_REQUEST);
 	}
 	
 	@PostMapping("/planet")
 	@ApiOperation(value = "Create a new Planet", notes = "Galaxy Response (http.status)" )
 	public ResponseEntity<GalaxyResponse> createPlanet(@RequestBody Planet planet) {
+		log.info("----- Start [@PostMapping(\"/planet\")] -----");
 		galaxyResponse = new GalaxyResponse();
 		boolean result = false;
 		
@@ -132,25 +152,30 @@ public class GalaxyRest {
 			galaxyResponse.setStatus(HttpStatus.OK.value());
 			galaxyResponse.setMessage("Success");
 			galaxyResponse.setTimeStamp(System.currentTimeMillis());
+			log.info("----- End [@PostMapping(\"/planet\")] OK-----");
 		return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.OK);
 		}
 		
 		galaxyResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 		galaxyResponse.setMessage("Internal Server Error");
 		galaxyResponse.setTimeStamp(System.currentTimeMillis());
+		log.info("----- End [@PostMapping(\"/planet\")] INTERNAL_SERVER_ERROR-----");
 	return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@GetMapping("/planet")
 	@ApiOperation(value = "List all Planet", notes = "List<PlanetInfo> (http.status)" )
 	public ResponseEntity<List<PlanetInfo>>  listPlanets(){
+		log.info("----- Start [@GetMapping(\"/planet\")] -----");
 		List<PlanetInfo> listPlanets = planetService.listPlanets();
+		log.info("----- End [@GetMapping(\"/planet\")] OK-----");
 		return new ResponseEntity<List<PlanetInfo>>(listPlanets,HttpStatus.OK);
 	}
 	
 	@PostMapping("/planet/{astronautId}/{planetId}")
 	@ApiOperation(value = "Set Astronaunt Home", notes = "Galaxy Response (http.status)" )
 	public ResponseEntity<GalaxyResponse> setHome(@PathVariable("astronautId") String astronautId, @PathVariable("planetId") String planetId) {
+		log.info("----- Start [@PostMapping(\"/planet/{astronautId}/{planetId}\")] -----");
 		galaxyResponse = new GalaxyResponse();
 		Astronaut tempAstronaut = astronautService.getAstronaut(Long.parseLong(astronautId));
 		Planet tempPlanet = planetService.getPlanet(Long.parseLong(planetId));
@@ -163,18 +188,21 @@ public class GalaxyRest {
 			galaxyResponse.setStatus(HttpStatus.OK.value());
 			galaxyResponse.setMessage("Success");
 			galaxyResponse.setTimeStamp(System.currentTimeMillis());
+			log.info("----- End [@PostMapping(\"/planet/{astronautId}/{planetId}\")] OK-----");
 		return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.OK);
 		}
 		
 		galaxyResponse.setStatus(HttpStatus.CONFLICT.value());
 		galaxyResponse.setMessage("Astronaut already has a establish home");
 		galaxyResponse.setTimeStamp(System.currentTimeMillis());
+		log.info("----- End [@PostMapping(\"/planet/{astronautId}/{planetId}\")] CONFLICT-----");
 	return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.CONFLICT);
 	}
 	
 	@PatchMapping("/planet/{astronautId}/{planetId}")
 	@ApiOperation(value = "Visit a Planet", notes = "Galaxy Response (http.status)" )
 	public ResponseEntity<GalaxyResponse> visitPlanet(@PathVariable("astronautId") String astronautId, @PathVariable("planetId") String planetId) {
+		log.info("----- Start [@PatchMapping(\"/planet/{astronautId}/{planetId}\")] -----");
 		galaxyResponse = new GalaxyResponse();
 		Astronaut tempAstronaut = astronautService.getAstronaut(Long.parseLong(astronautId));
 		Planet tempPlanet = planetService.getPlanet(Long.parseLong(planetId));
@@ -188,21 +216,25 @@ public class GalaxyRest {
 			galaxyResponse.setStatus(HttpStatus.OK.value());
 			galaxyResponse.setMessage("Success");
 			galaxyResponse.setTimeStamp(System.currentTimeMillis());
+			log.info("----- Start [@PatchMapping(\"/planet/{astronautId}/{planetId}\")] OK-----");
 		return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.OK);
 		}
 		
 		galaxyResponse.setStatus(HttpStatus.BAD_REQUEST.value());
 		galaxyResponse.setMessage("Bad Request");
 		galaxyResponse.setTimeStamp(System.currentTimeMillis());
+		log.info("----- Start [@PatchMapping(\"/planet/{astronautId}/{planetId}\")] BAD_REQUEST-----");
 	return new ResponseEntity<GalaxyResponse>(galaxyResponse,HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/top")
 	@ApiOperation(value = "List Top Planet and Astronaut", notes = "TopInfo (http.status)" )
 	public ResponseEntity<TopInfo> topList(){
+		log.info("----- Start [@GetMapping(\"/top\")] -----");
 		TopInfo tempTopInfo = new TopInfo();
 		tempTopInfo.setTopAstronaut(astronautService.topAstronaut());
 		tempTopInfo.setTopPlanets(planetService.listTopPlanets());
+		log.info("----- End [@GetMapping(\"/top\")] OK-----");
 		return new ResponseEntity<TopInfo>(tempTopInfo,HttpStatus.OK);
 	}
 }
