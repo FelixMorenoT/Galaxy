@@ -4,6 +4,8 @@ import { Astronaut } from 'src/dao/astronaut';
 import { Planet } from 'src/dao/planet';
 import { PlanetService } from './services/planet.service';
 import { TopService } from './services/top.service';
+import { FormControl, NgForm } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -11,12 +13,14 @@ import { TopService } from './services/top.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
+ formGroup: FormGroup; 
   title = 'GalaxyApp';
+
   constructor(
       private astronautService: AstronautService,
       private planetService: PlanetService,
-      private topService: TopService
+      private topService: TopService,
   ) { }
  
   ngOnInit(): void {
@@ -28,6 +32,11 @@ export class AppComponent implements OnInit{
     //this.astronautService.visitAnAstronaut('1','2').subscribe((response) => {console.log(response)})
     //this.planetService.getPlanets().subscribe((response) => {console.log("GET"); console.log(response)})
 
-    this.topService.getTops().subscribe((response) => {console.log(response)});
+    //this.topService.getTops().subscribe((response) => {console.log(response)});
+
   }
+  
+   onClickSubmit(f: NgForm) {
+      this.astronautService.saveAstronaut(f.value).subscribe((response) => {console.log("Save"); console.log(response)})
+   }
 }

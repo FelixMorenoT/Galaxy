@@ -23,7 +23,7 @@ public class AstronautServiceImp implements AstronautService{
 	private AstronautRepository astronautRepository;
 	
 	@Value("${top.entity}")
-	private long limitTop;
+	private long limitTop; 
 	
 	@Override
 	public boolean saveAstronaut(Astronaut astronaut) {
